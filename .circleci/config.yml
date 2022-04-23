@@ -1,0 +1,9 @@
+version: 2.1
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: docker build -t masssh/app:$CIRCLE_BRANCH -f ./app/Dockerfile ./app
+      - run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASS
+      - run: docker push masssh/app:$CIRCLE_BRANCH
